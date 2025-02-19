@@ -1,0 +1,8 @@
+# Any hidden files, except .gitignore
+.*
+!.gitignore
+
+node_modules/
+
+# JSDoc compile folder
+out/
