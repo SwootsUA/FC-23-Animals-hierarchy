@@ -184,7 +184,7 @@ class Dolphin extends Whales {
     }
 
     eat() {
-        console.log(`${this.name} swims fish`);
+        console.log(`${this.name} eat fish`);
     }
 
     static isDolphin(obj) {
