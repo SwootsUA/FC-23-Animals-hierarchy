@@ -277,6 +277,7 @@ dolphin1.say();
 dolphin1.eat();
 console.dir(dolphin1);
 console.dir(dolphin2);
+console.log(`Static: maxAge = ${Dolphin.maxAge}, maxWeight = ${Dolphin.maxWeight}`);
 console.log('isDolphin(dolphin1):', Dolphin.isDolphin(dolphin1));
 console.log('isAnimal(dolphin1):', Animals.isAnimal(dolphin1));
 console.groupEnd();
