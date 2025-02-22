@@ -6,3 +6,6 @@ node_modules/
 
 # JSDoc compile folder
 out/
+
+# temp folder
+temp/
