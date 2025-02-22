@@ -1,6 +1,6 @@
 'use strict';
 
-class Animals {
+class Animal {
     /**
      * Creates a new animal instance.
      * @param {number} age - Age of the Animal.
@@ -27,36 +27,20 @@ class Animals {
         console.log(`${this.name} eat`);
     }
 
-    static isAnimal(obj) {
-        return obj instanceof Animals;
+    static isType(obj) {
+        return obj instanceof this;
     }
 }
 
-class Mammals extends Animals {
-    static isMammal(obj) {
-        return obj instanceof Mammals;
-    }
-}
+class Mammal extends Animal {}
 
-class Predators extends Mammals {
-    static isPredator(obj) {
-        return obj instanceof Predators;
-    }
-}
+class Predator extends Mammal {}
 
-class Whales extends Mammals {
-    static isWhale(obj) {
-        return obj instanceof Whales;
-    }
-}
+class Whale extends Mammal {}
 
-class Primates extends Mammals {
-    static isPrimate(obj) {
-        return obj instanceof Primates;
-    }
-}
+class Primate extends Mammal {}
 
-class Birds extends Animals {
+class Bird extends Animal {
     static maxAge = 80;
     static maxWeight = 160;
 
@@ -68,8 +52,8 @@ class Birds extends Animals {
      * @param {number} limbAmount - Number of limbs in the Bird.
      */
     constructor(age, name, weight = 1, limbAmount = 4) {
-        age = age > Birds.maxAge ? Birds.maxAge : age;
-        weight = weight > Birds.maxWeight ? Birds.maxWeight : weight;
+        age = age > Bird.maxAge ? Bird.maxAge : age;
+        weight = weight > Bird.maxWeight ? Bird.maxWeight : weight;
         super(age, name, weight, limbAmount);
     }
 
@@ -84,13 +68,9 @@ class Birds extends Animals {
     eat() {
         console.log(`${this.name} eat seeds`);
     }
-
-    static isBird(obj) {
-        return obj instanceof Birds;
-    }
 }
 
-class Fish extends Animals {
+class Fish extends Animal {
     static maxAge = 400;
     static maxWeight = 40000;
 
@@ -118,13 +98,9 @@ class Fish extends Animals {
     eat() {
         console.log(`${this.name} eat fish food`);
     }
-
-    static isFish(obj) {
-        return obj instanceof Fish;
-    }
 }
 
-class Dogs extends Predators {
+class Dog extends Predator {
     static maxAge = 30;
     static maxWeight = 160;
 
@@ -136,8 +112,8 @@ class Dogs extends Predators {
      * @param {number} limbAmount - Number of limbs in the Dog.
      */
     constructor(age, name, weight = 15, limbAmount = 4) {
-        age = age > Dogs.maxAge ? Dogs.maxAge : age;
-        weight = weight > Dogs.maxWeight ? Dogs.maxWeight : weight;
+        age = age > Dog.maxAge ? Dog.maxAge : age;
+        weight = weight > Dog.maxWeight ? Dog.maxWeight : weight;
         super(age, name, weight, limbAmount);
     }
 
@@ -152,13 +128,9 @@ class Dogs extends Predators {
     eat() {
         console.log(`${this.name} eat dog food`);
     }
-
-    static isDog(obj) {
-        return obj instanceof Dogs;
-    }
 }
 
-class Dolphin extends Whales {
+class Dolphin extends Whale {
     static maxAge = 90;
     static maxWeight = 10000;
 
@@ -186,13 +158,9 @@ class Dolphin extends Whales {
     eat() {
         console.log(`${this.name} eat fish`);
     }
-
-    static isDolphin(obj) {
-        return obj instanceof Dolphin;
-    }
 }
 
-class Human extends Primates {
+class Human extends Primate {
     static maxAge = 200;
     static maxWeight = 650;
 
@@ -220,24 +188,20 @@ class Human extends Primates {
     eat() {
         console.log(`${this.name} eat human food`);
     }
-
-    static isHuman(obj) {
-        return obj instanceof Human;
-    }
 }
 
 console.groupCollapsed('=== Testing Birds ===');
-const bird1 = new Birds(5, 'BirdNormal', 5, 4);
-const bird2 = new Birds(100, 'BirdMax', 200, 4);
+const bird1 = new Bird(5, 'BirdNormal', 5, 4);
+const bird2 = new Bird(100, 'BirdMax', 200, 4);
 
 bird1.move();
 bird1.say();
 bird1.eat();
 console.dir(bird1);
 console.dir(bird2);
-console.log(`Static: maxAge = ${Birds.maxAge}, maxWeight = ${Birds.maxWeight}`);
-console.log('isBird(bird1): ', Birds.isBird(bird1));
-console.log('isAnimal(bird1):', Animals.isAnimal(bird1));
+console.log(`Static: maxAge = ${Bird.maxAge}, maxWeight = ${Bird.maxWeight}`);
+console.log('Bird.isBird(bird1): ', Bird.isType(bird1));
+console.log('Animal.isType(bird1):', Animal.isType(bird1));
 console.groupEnd();
 
 console.groupCollapsed('=== Testing Fish ===');
@@ -250,22 +214,22 @@ fish1.eat();
 console.dir(fish1);
 console.dir(fish2);
 console.log(`Static: maxAge = ${Fish.maxAge}, maxWeight = ${Fish.maxWeight}`);
-console.log('isFish(fish1): ', Fish.isFish(fish1));
-console.log('isAnimal(fish1):', Animals.isAnimal(fish1));
+console.log('Fish.isType(fish1): ', Fish.isType(fish1));
+console.log('Animal.isType(fish1):', Animal.isType(fish1));
 console.groupEnd();
 
 console.groupCollapsed('=== Testing Dog ===');
-const dog1 = new Dogs(3, 'DogNormal', 15, 4);
-const dog2 = new Dogs(60, 'DogMax', 250, 4);
+const dog1 = new Dog(3, 'DogNormal', 15, 4);
+const dog2 = new Dog(60, 'DogMax', 250, 4);
 
 dog1.move();
 dog1.say();
 dog1.eat();
 console.dir(dog1);
 console.dir(dog2);
-console.log(`Static: maxAge = ${Dogs.maxAge}, maxWeight = ${Dogs.maxWeight}`);
-console.log('isDog(dog1): ', Dogs.isDog(dog1));
-console.log('isAnimal(dog1):', Animals.isAnimal(dog1));
+console.log(`Static: maxAge = ${Dog.maxAge}, maxWeight = ${Dog.maxWeight}`);
+console.log('Dog.isType(dog1): ', Dog.isType(dog1));
+console.log('Animal.isType(dog1):', Animal.isType(dog1));
 console.groupEnd();
 
 console.groupCollapsed('=== Testing Dolphin ===');
@@ -277,9 +241,11 @@ dolphin1.say();
 dolphin1.eat();
 console.dir(dolphin1);
 console.dir(dolphin2);
-console.log(`Static: maxAge = ${Dolphin.maxAge}, maxWeight = ${Dolphin.maxWeight}`);
-console.log('isDolphin(dolphin1):', Dolphin.isDolphin(dolphin1));
-console.log('isAnimal(dolphin1):', Animals.isAnimal(dolphin1));
+console.log(
+    `Static: maxAge = ${Dolphin.maxAge}, maxWeight = ${Dolphin.maxWeight}`
+);
+console.log('Dolphin.isType(dolphin1):', Dolphin.isType(dolphin1));
+console.log('Animal.isType(dolphin1):', Animal.isType(dolphin1));
 console.groupEnd();
 
 console.groupCollapsed('=== Testing Human ===');
@@ -292,6 +258,6 @@ human1.eat();
 console.dir(human1);
 console.dir(human2);
 console.log(`Static: maxAge = ${Human.maxAge}, maxWeight = ${Human.maxWeight}`);
-console.log('isHuman(human1):', Human.isHuman(human1));
-console.log('isAnimal(human1):', Animals.isAnimal(human1));
+console.log('Human.isType(human1):', Human.isType(human1));
+console.log('Animal.isType(human1):', Animal.isType(human1));
 console.groupEnd();
